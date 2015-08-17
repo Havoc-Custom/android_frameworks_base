@@ -64,6 +64,9 @@
    <!-- DataSwitch Tile -->
     <string name="qs_data_switch_label">Switch data card</string>
 
+    <!-- Volume panel QS tile -->
+    <string name="quick_settings_volume_panel_label">Volume panel</string>
+
    <!-- Preferred network tile -->
     <string name="quick_settings_preferred_network_label">Preferred network</string>
     <string name="quick_settings_preferred_network_lte">4g / LTE</string>
