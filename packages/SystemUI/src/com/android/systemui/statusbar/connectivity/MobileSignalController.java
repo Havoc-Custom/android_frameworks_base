@@ -29,6 +29,7 @@ import android.telephony.CellSignalStrengthCdma;
 import android.telephony.SignalStrength;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
+import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.Html;
 import android.text.TextUtils;
@@ -44,7 +45,9 @@ import com.android.settingslib.mobile.MobileStatusTracker.SubscriptionDefaults;
 import com.android.settingslib.mobile.TelephonyIcons;
 import com.android.settingslib.net.SignalStrengthUtil;
 import com.android.systemui.R;
+import com.android.systemui.Dependency;
 import com.android.systemui.statusbar.pipeline.mobile.util.MobileMappingsProxy;
+import com.android.systemui.tuner.TunerService;
 import com.android.systemui.util.CarrierConfigTracker;
 
 import java.io.PrintWriter;
@@ -56,9 +59,14 @@ import java.util.Map;
 /**
  * Monitors the mobile signal changes and update the SysUI icons.
  */
-public class MobileSignalController extends SignalController<MobileState, MobileIconGroup> {
+public class MobileSignalController extends SignalController<MobileState, MobileIconGroup>
+        implements TunerService.Tunable {
     private static final SimpleDateFormat SSDF = new SimpleDateFormat("MM-dd HH:mm:ss.SSS");
     private static final int STATUS_HISTORY_SIZE = 64;
+
+    private static final String DATA_DISABLED_ICON =
+            "system:" + Settings.System.DATA_DISABLED_ICON;
+            
     private final TelephonyManager mPhone;
     private final CarrierConfigTracker mCarrierConfigTracker;
     private final SubscriptionDefaults mDefaults;
@@ -81,6 +89,8 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
     private final String[] mMobileStatusHistory = new String[STATUS_HISTORY_SIZE];
     // Where to copy the next state into.
     private int mMobileStatusHistoryIndex;
+
+    private boolean mDataDisabledIcon;
 
     private final MobileStatusTracker.Callback mMobileCallback =
             new MobileStatusTracker.Callback() {
@@ -158,6 +168,21 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
             }
         };
         mMobileStatusTracker = mobileStatusTrackerFactory.createTracker(mMobileCallback);
+
+        Dependency.get(TunerService.class).addTunable(this, DATA_DISABLED_ICON);
+    }
+
+    @Override
+    public void onTuningChanged(String key, String newValue) {
+        switch (key) {
+            case DATA_DISABLED_ICON:
+                mDataDisabledIcon = 
+                    TunerService.parseIntegerSwitch(newValue, true);
+                updateTelephony();
+                break; 
+            default:
+                break;
+        }
     }
 
     void setConfiguration(Config config) {
@@ -492,7 +517,7 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
         mCurrentState.roaming = isRoaming();
         if (isCarrierNetworkChangeActive()) {
             mCurrentState.iconGroup = TelephonyIcons.CARRIER_NETWORK_CHANGE;
-        } else if (isDataDisabled() && !mConfig.alwaysShowDataRatIcon) {
+        } else if (isDataDisabled() && mDataDisabledIcon) {
             if (mSubscriptionInfo.getSubscriptionId() != mDefaults.getDefaultDataSubId()) {
                 mCurrentState.iconGroup = TelephonyIcons.NOT_DEFAULT_DATA;
             } else {
