@@ -5677,6 +5677,18 @@ public final class Settings {
          * @hide
          */
         public static final String ALERT_SLIDER_SILENT_MODE = "alert_slider_silent_mode";
+         
+	/**
+	 * reTicker Status
+         * @hide
+         */
+        public static final String RETICKER_STATUS = "reticker_status";
+
+        /**
+         * reTicker Colored
+         * @hide
+         */
+        public static final String RETICKER_COLORED = "reticker_colored";
 
         /**
          * Keys we no longer back up under the current schema, but want to continue to
