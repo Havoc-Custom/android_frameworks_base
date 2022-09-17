@@ -69,4 +69,10 @@
     <string name="quick_settings_preferred_network_lte">4g / LTE</string>
     <string name="quick_settings_preferred_network_nr">5g / NR</string>
     <string name="quick_settings_preferred_network_unsupported">Unsupported</string>
+
+   <!-- QuickSettings: InternetDialog: Summary for how many devices are connected to the hotspot [CHAR LIMIT=NONE] -->
+    <plurals name="quick_settings_internet_hotspot_summary_num_devices">
+        <item quantity="one">%d device connected</item>
+        <item quantity="other">%d devices connected</item>
+    </plurals>
 </resources>
