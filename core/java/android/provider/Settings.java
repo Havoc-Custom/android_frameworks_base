@@ -11437,6 +11437,13 @@ public final class Settings {
          * @hide
          */
         public static final String SHOW_WIFI_STANDARD_ICON = "show_wifi_standard_icon";
+         
+	 /**
+	 * Whether to show an overlay in the bottom corner of the screen on copying stuff
+         * into the clipboard.
+         * @hide
+         */
+        public static final String SHOW_CLIPBOARD_OVERLAY = "show_clipboard_overlay";
 
         /**
          * These entries are considered common between the personal and the managed profile,
