@@ -65,9 +65,11 @@ public class PixelPropsUtils {
 
     private static final String[] packagesToChangePixel6Pro = {
             "com.google.android.inputmethod.latin",
-            "com.google.android.as",
+            "com.google.android.googlequicksearchbox",
+            "com.google.android.apps.googleassistant",
             "com.google.android.wallpaper.effects",
             "com.google.android.apps.emojiwallpaper",
+            "com.google.android.as"
     };
 
     private static final String[] packagesToChangePixelXL = {
