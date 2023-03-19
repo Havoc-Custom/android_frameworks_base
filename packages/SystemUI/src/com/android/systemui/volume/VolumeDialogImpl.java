@@ -324,6 +324,7 @@ public class VolumeDialogImpl implements VolumeDialog, Dumpable,
     
     private int showHide;
     private int mVolumePersenStyle;
+    private int mVolumeBackgroundStyle;
 
     private boolean mSeparateNotification;
 
