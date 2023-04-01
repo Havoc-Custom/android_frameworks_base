@@ -89,5 +89,6 @@ public class SystemSettings {
         Settings.System.NOTIFICATION_LIGHT_PULSE,
         Settings.System.LOCKSCREEN_BATTERY_INFO,
         Settings.System.HAPTIC_ON_SLIDER,
+        Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL,
     };
 }
