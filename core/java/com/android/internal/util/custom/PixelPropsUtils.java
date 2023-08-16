@@ -46,8 +46,6 @@ public class PixelPropsUtils {
     private static final ComponentName GMS_ADD_ACCOUNT_ACTIVITY = ComponentName.unflattenFromString(
             "com.google.android.gms/.auth.uiflows.minutemaid.MinuteMaidActivity");
 
-    private static final String PACKAGE_AIAI = "com.google.android.apps.miphone.aiai.AiaiApplication";
-
     private static final boolean DEBUG = false;
 
     private static final Map<String, Object> propsToChangeGeneric;
@@ -67,11 +65,9 @@ public class PixelPropsUtils {
 
     private static final String[] packagesToChangePixel6Pro = {
             "com.google.android.inputmethod.latin",
-            "com.google.android.googlequicksearchbox",
-            "com.google.android.apps.googleassistant",
+            "com.google.android.as",
             "com.google.android.wallpaper.effects",
             "com.google.android.apps.emojiwallpaper",
-            "com.google.android.as"
     };
 
     private static final String[] packagesToChangePixelXL = {
@@ -166,7 +162,7 @@ public class PixelPropsUtils {
 
     public static void setProps(String packageName) {
         propsToChangeGeneric.forEach((k, v) -> setPropValue(k, v));
-        if (packageName == null || packageName.isEmpty() || packageName.equals(PACKAGE_AIAI)) {
+        if (packageName == null || packageName.isEmpty()) {
             return;
         }
         if (Arrays.asList(packagesToKeep).contains(packageName)) {
